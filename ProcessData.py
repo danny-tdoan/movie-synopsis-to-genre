@@ -20,4 +20,13 @@ def get_top_n_genres(data,n):
     return genre_tally.nlargest(n).index.tolist()
 
 def categorize_movie_genre(data,all_genres):
-    pass
+    """one hot encoder or get_dummies don't really work
+        there are multiple labels in non consistent order. Manually categorize the genre"""
+    labels = (np.in1d(all_genres, data['genres'].values[0]))
+
+    for i in range(1, data['genres'].shape[0]):
+        labels = np.vstack((labels, np.in1d(all_genres, data['genres'].values[i])))
+
+    labels = labels.astype(int)
+
+    return labels.shape
