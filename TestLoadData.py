@@ -3,7 +3,7 @@ from unittest import mock
 
 from LoadData import *
 from constants import *
-from test_constants import *
+from constants_test import *
 
 
 class TestLoadData(unittest.TestCase):
