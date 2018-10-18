@@ -1,10 +1,10 @@
+import logging
 import pandas as pd
 import numpy as np
 import Utilities as util
 from keras.preprocessing.text import Tokenizer
 from sklearn.model_selection import train_test_split
 from constants import VOCAB_SIZE
-
 
 def get_all_genres(data):
     """Aggregate all the possible genres that appear in the data"""
@@ -45,17 +45,23 @@ def prepare_train_test_set(X, y, tokenizer=None, save_tokenizer=False, vocab_siz
 
     # generate the tokenizer if necessary
     if tokenizer == None:
+        logging.info("Tokenizer is null, initialize it")
         tokenizer = Tokenizer(num_words=vocab_size)
         tokenizer.fit_on_texts(X_train)
 
     # assume the file to saved tokenizer is provided
     elif type(tokenizer == str):
+        logging.info("Tokenizer is loaded from {}".format(tokenizer))
         tokenizer = util.load_tokenizer(tokenizer)
 
     if save_tokenizer:
+        logging.info("Saving tokenizer to tokenizer/tokenizer")
         util.save_tokenizer('tokenizer/tokenizer', tokenizer)
 
     X_train_tokenized = tokenizer.texts_to_matrix(X_train, mode='tfidf')
+    logging.info("Finish tokenizing X_train")
+
     X_test_tokenized = tokenizer.texts_to_matrix(X_test, mode='tfidf')
+    logging.info("Finish tokenizing X_test")
 
     return (X_train_tokenized, y_train), (X_test_tokenized, y_test)
