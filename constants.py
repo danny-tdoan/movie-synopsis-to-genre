@@ -1,5 +1,9 @@
 SYNOPSIS_FILE = 'data/plot_summaries.txt'
 MOVIE_META_FILE = 'data/movie.metadata.tsv'
+MODEL_DIR = 'model'
+LOG_DIR = 'logs'
+LOG_NAME = 'log.log'
+MODEL_VERBOSE = 0
 META_COL_ID = 0
 META_COL_GENRE = 8
 TOP_N_GENRES = 30

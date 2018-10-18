@@ -22,6 +22,7 @@ def load_movie_genre(file, delim='\t'):
     """Load movie genre from file. only take the id and the genre. Store the genres as a list"""
     movies_meta = pd.read_csv(file, header=None, delimiter=delim)
     movies_genre = movies_meta[[META_COL_ID, META_COL_GENRE]]
+    movies_genre.columns = ['id', 'genres']
 
     # update the genre column to list type
     movies_genre['genres'] = movies_genre['genres'].apply(eval).apply(lambda x: list(x.values()))
